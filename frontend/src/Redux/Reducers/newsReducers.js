@@ -25,10 +25,10 @@ export const newsListReducer = (state = { news: [] }, action) => {
 };
 
 // SINGLE NEWS
-export const newsDetailsReducer = (state = { item: {} }, action) => {
+export const newsDetailsReducer = (state = {}, action) => {
   switch (action.type) {
     case NEWS_DETAILS_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true };
     case NEWS_DETAILS_SUCCESS:
       return { loading: false, item: action.payload };
     case NEWS_DETAILS_FAIL:

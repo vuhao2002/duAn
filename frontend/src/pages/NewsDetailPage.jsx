@@ -11,6 +11,7 @@ const NewsDetailPage = () => {
   const { id } = useParams();
   const newsDetails = useSelector((state) => state.newsDetails);
   const { loading, item } = newsDetails;
+  console.log(newsDetails);
   let date;
   if (item) {
     date = new Date(item.createdAt);
@@ -18,11 +19,13 @@ const NewsDetailPage = () => {
       date.getMonth() + 1
     }, ${date.getFullYear()}`;
   }
-  console.log(newsDetails);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listNewsDetails(id));
   }, [dispatch, id]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Header />

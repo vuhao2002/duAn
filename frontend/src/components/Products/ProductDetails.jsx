@@ -16,7 +16,7 @@ import cart_icon from "../../images/cart-icon.webp";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Redux/Actions/cartActions";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   addToWishlist,
   removeFromWishlist,
@@ -102,6 +102,9 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(listProduct(product.category));
   }, [product, dispatch]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="my-[100px] ">
@@ -927,7 +930,7 @@ const SuggestProductCard = ({ product }) => {
         <div className="group flex flex-col h-full p-[10px] rounded-[12px] bg-[#fff] duration-300 ease-in-out hover:shadow-2">
           <div className="relative">
             <div className="relative pt-[100%] rounded-[12px] overflow-hidden">
-              <a href={`/san-pham/${product._id}`}>
+              <Link to={`/san-pham/${product._id}`}>
                 <img
                   className="group-hover:scale-105 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-37%] object-cover duration-300 ease-in-out object-top w-full h-auto max-w-full"
                   width="300"
@@ -935,7 +938,7 @@ const SuggestProductCard = ({ product }) => {
                   src={product.images[0].url}
                   alt=""
                 />
-              </a>
+              </Link>
             </div>
             <div className="absolute min-w-12 top-5 left-[10px] z-1 flex items-center justify-center">
               <div className="absolute w-full min-h-[48px] top-[-10px] -z-1 left-[0px] bg-no-repeat bg-contain bg-sale"></div>
@@ -994,12 +997,12 @@ const SuggestProductCard = ({ product }) => {
                 ({product.ratings})
               </span>
             </div>
-            <a
-              href="/san-pham/id"
+            <Link
+              to={`/san-pham/${product._id}`}
               className="text-[16px] font-[500] overflow-hidden line-clamp-2 text-ellipsis no-underline duration-300 hover:text-[#f66315] ease-in-out"
             >
               {product.name}{" "}
-            </a>
+            </Link>
             <div className="flex items-center gap-[10px] pt-[10px] mt-auto">
               <span className="text-[20px] md:text-[18px] text-[#f66315] font-[700]">
                 {product.discountPrice}đ

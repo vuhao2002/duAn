@@ -35,7 +35,6 @@ function App() {
         <Route path="/admin/add-branch" element={<AdminAddBranchPage />} />
         <Route path="/admin/branches" element={<AdminBranchesPage />} />
         <Route path="/admin/messages" element={<AdminMessagesPage />} />
-        <Route path="/admin/messages" element={<AdminMessagesPage />} />
         <Route
           path="/admin/orderDetail/:id"
           element={<AdminOrderDetailPage />}
