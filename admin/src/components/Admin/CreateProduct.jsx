@@ -10,6 +10,7 @@ import {
 } from "../../Redux/Actions/productActions";
 import Dropzone from "react-dropzone";
 import { useNavigate } from "react-router-dom";
+import { RESET_IMG } from "../../Redux/Constants/productConstants";
 
 let schema = yup.object().shape({
   name: yup.string().required("Name is Required"),
@@ -106,6 +107,10 @@ const CreateProduct = () => {
       });
     });
   }
+
+  useEffect(() => {
+    dispatch({ type: RESET_IMG });
+  }, []);
   useEffect(() => {
     formik.values.images = img;
   }, [dispatch, images, img]);

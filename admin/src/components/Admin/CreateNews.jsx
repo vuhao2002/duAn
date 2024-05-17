@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteImg, imgUpload } from "../../Redux/Actions/productActions";
 import { useNavigate } from "react-router-dom";
 import { IoMdCloseCircle } from "react-icons/io";
 import { createNews } from "../../Redux/Actions/newsActions";
+import { RESET_IMG } from "../../Redux/Constants/productConstants";
 
 const CreateNews = () => {
   const [title, setTitle] = useState("");
@@ -19,6 +20,9 @@ const CreateNews = () => {
     dispatch(createNews({ title, description, images }));
     navigate("/admin/news");
   };
+  useEffect(() => {
+    dispatch({ type: RESET_IMG });
+  }, []);
   return (
     <div className="w-[90%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
       <h5 className="text-[30px] font-Poppins text-center">Create News</h5>
