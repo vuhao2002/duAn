@@ -9,11 +9,13 @@ import {
   AdminOrdersPage,
   AdminCustomersPage,
   AdminAddNewsPage,
+  AdminNewsPage,
   AdminAddBranchPage,
   AdminBranchesPage,
   AdminMessagesPage,
   AdminOrderDetailPage,
   EditProductPage,
+  EditNewsPage,
 } from "./routes/AdminRoutes.js";
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
         <Route path="/admin/customers" element={<AdminCustomersPage />} />
         <Route path="/admin/add-news" element={<AdminAddNewsPage />} />
+        <Route path="/admin/news" element={<AdminNewsPage />} />
+        <Route path="/admin/news/:id" element={<EditNewsPage />} />
         <Route path="/admin/add-branch" element={<AdminAddBranchPage />} />
         <Route path="/admin/branches" element={<AdminBranchesPage />} />
         <Route path="/admin/messages" element={<AdminMessagesPage />} />

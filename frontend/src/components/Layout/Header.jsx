@@ -13,13 +13,17 @@ import { IoIosSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart } from "../../Redux/Actions/cartActions";
 const Header = () => {
+  const [search, setSearch] = useState("");
   const [openMenu, setOpenMenu] = useState(false);
   const [openProductList, setOpenProductList] = useState(false);
   const [openCartList, setOpenCartList] = useState(false);
   const [openSearchPopUp, setOpenSearchPopUp] = useState(false);
+  const navigate = useNavigate();
+
   let sum = 0;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -474,10 +478,17 @@ const Header = () => {
                             type="search"
                             className="w-full px-[12px] border-none text-[14px] focus:outline-none  focus:ring-0 "
                             placeholder="Nhập từ khóa"
+                            value={search}
+                            onChange={(e) => setSearch(e.target.value)}
                           />
                         </div>
                       </div>
-                      <Link to="/ket-qua-tim-kiem">
+                      <div
+                        onClick={() => {
+                          setOpenSearchPopUp(false);
+                          navigate(`/ket-qua-tim-kiem?name=${search}`);
+                        }}
+                      >
                         <button
                           type="submit"
                           className="text-[#fff] text-[16px] hover:text-[#000] hover:bg-[#fff] font-[700] cursor-pointer relative duration-300 ease-in-out bg-[#f66315] w-fit mx-auto rounded-[40px] flex items-center justify-center border border-solid border-[#f66315]"
@@ -487,7 +498,7 @@ const Header = () => {
                             <span>Tìm kiếm</span>
                           </div>
                         </button>
-                      </Link>
+                      </div>
                     </div>
                     {/* </form> */}
                   </div>

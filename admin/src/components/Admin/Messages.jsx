@@ -43,7 +43,7 @@ const Messages = () => {
     const getConversation = async () => {
       try {
         const resonse = await axios.get(
-          `${server}/conversation/get-all-conversation-user/${adminInfo?.user?._id}`,
+          `${server}/conversation/get-all-conversation-shop/${adminInfo?.user?._id}`,
           {
             withCredentials: true,
           }
@@ -93,6 +93,7 @@ const Messages = () => {
     };
     getMessage();
   }, [currentChat]);
+  console.log(currentChat);
 
   // create new message
   const sendMessageHandler = async (e) => {
@@ -104,7 +105,7 @@ const Messages = () => {
       conversationId: currentChat._id,
     };
     const receiverId = currentChat.members.find(
-      (member) => member.id !== adminInfo?.user?._id
+      (member) => member !== adminInfo?.user?._id
     );
 
     socketId.emit("sendMessage", {

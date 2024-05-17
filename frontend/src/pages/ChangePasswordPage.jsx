@@ -6,7 +6,7 @@ import { MdLockOutline } from "react-icons/md";
 import { LuFileClock } from "react-icons/lu";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, updateUserPassword } from "../Redux/Actions/userActions";
 
@@ -73,37 +73,37 @@ const ChangePasswordPage = () => {
                     {/* list */}
                     <div className="flex flex-col gap-[20px] mt-[50px]">
                       <div>
-                        <a
-                          href="/tai-khoan"
+                        <Link
+                          to="/tai-khoan"
                           className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
                         >
                           <FaRegUser className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
                           <span className="group-hover:text-[#f66315]">
                             Thông tin tài khoản
                           </span>
-                        </a>
+                        </Link>
                       </div>
                       <div>
-                        <a
-                          href="/tai-khoan/change-password"
+                        <Link
+                          to="/tai-khoan/change-password"
                           className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] bg-[#feefe8]"
                         >
                           <MdLockOutline className="text-[18px] text-[#f66315]" />
                           <span className="text-[#f66315]">
                             Thay đổi mật khẩu
                           </span>
-                        </a>
+                        </Link>
                       </div>
                       <div>
-                        <a
-                          href="/tai-khoan/orders"
+                        <Link
+                          to="/tai-khoan/orders"
                           className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
                         >
                           <LuFileClock className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
                           <span className="group-hover:text-[#f66315]">
                             Lịch sử đơn hàng
                           </span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                   </div>

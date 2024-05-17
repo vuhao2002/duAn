@@ -11,6 +11,7 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  RESET_IMG,
   UPLOAD_IMG_FAIL,
   UPLOAD_IMG_REQUEST,
   UPLOAD_IMG_SUCCESS,
@@ -62,6 +63,7 @@ export const createProduct = (dataProduct) => async (dispatch) => {
     });
     dispatch({ type: CREATE_PRODUCT_SUCCESS });
     toast.success("Thêm sản phẩm thành công!");
+    dispatch({ type: RESET_IMG });
   } catch (error) {
     toast.error("Thêm sản phẩm thất bại!");
   }
@@ -129,6 +131,8 @@ export const productEdit = (id, data) => async (dispatch) => {
       }
     );
     dispatch({ type: PRODUCT_EDIT_SUCCESS });
+    dispatch({ type: RESET_IMG });
+
     toast.success("Chỉnh sửa thông tin sản phẩm thành công!");
   } catch (error) {
     toast.error("Chỉnh sửa thông tin sản phẩm thất bại!");

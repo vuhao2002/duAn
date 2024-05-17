@@ -7,6 +7,7 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_REQUEST,
   PRODUCT_LIST_SUCCESS,
+  RESET_IMG,
   UPLOAD_IMG_FAIL,
   UPLOAD_IMG_REQUEST,
   UPLOAD_IMG_SUCCESS,
@@ -50,6 +51,10 @@ export const uploadImgReducer = (state = { images: [] }, action) => {
       return {
         ...state,
         images: state.images.filter((x) => x.public_id !== action.payload),
+      };
+    case RESET_IMG:
+      return {
+        images: [],
       };
     default:
       return state;

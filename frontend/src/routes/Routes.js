@@ -20,6 +20,7 @@ import BadmintonClothesPage from "../pages/BadmintonClothesPage.jsx";
 import BadmintonBalosPage from "../pages/BadmintonBalosPage.jsx";
 import BadmintonAccessoriesPage from "../pages/BadmintonAccessoriesPage.jsx";
 import NewsPage from "../pages/NewsPage.jsx";
+import NewsDetailPage from "../pages/NewsDetailPage.jsx";
 import SearchResultPage from "../pages/SearchResultPage.jsx";
 
 export {
@@ -45,5 +46,6 @@ export {
   BadmintonBalosPage,
   BadmintonAccessoriesPage,
   NewsPage,
+  NewsDetailPage,
   SearchResultPage,
 };

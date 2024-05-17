@@ -57,7 +57,7 @@ const ShopsPage = () => {
                       {stores.map((store, i) => {
                         return (
                           <div
-                            className="hover:bg-[#fff] bg-[#feefe8] p-[15px] rounded-[12px] border border-solid border-[#f66315] duration-300 ease-in-out cursor-pointer"
+                            className="hover:bg-[#fff] bg-[#feefe8] p-[15px] rounded-[12px] border border-solid border-[#f66315] duration-300 ease-in-out cursor-pointer margin-left margin-right mb-4"
                             key={i}
                           >
                             <div className="flex items-center justify-between gap-[12px]">

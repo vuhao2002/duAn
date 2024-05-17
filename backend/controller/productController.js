@@ -99,10 +99,20 @@ const getAllProduct = asyncHandler(async (req, res) => {
 const getAllProductToCategory = asyncHandler(async (req, res) => {
   try {
     const allProduct = await Product.find({
-      category: {
-        $regex: req.params.key,
-        $options: "i",
-      },
+      $or: [
+        {
+          category: {
+            $regex: req.params.key,
+            $options: "i",
+          },
+        },
+        {
+          name: {
+            $regex: req.params.key,
+            $options: "i",
+          },
+        },
+      ],
     }).sort({ createdAt: -1 });
     res.json(allProduct);
   } catch (err) {

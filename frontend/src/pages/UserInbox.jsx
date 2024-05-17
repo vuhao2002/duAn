@@ -96,6 +96,7 @@ const UserInbox = () => {
     };
     getMessage();
   }, [currentChat]);
+  console.log(currentChat);
 
   // create new message
   const sendMessageHandler = async (e) => {
@@ -107,7 +108,7 @@ const UserInbox = () => {
       conversationId: currentChat._id,
     };
     const receiverId = currentChat.members.find(
-      (member) => member.id !== userInfo?.user?._id
+      (member) => member !== userInfo?.user?._id
     );
 
     socketId.emit("sendMessage", {

@@ -8,6 +8,12 @@ import {
   productListReducer,
   uploadImgReducer,
 } from "./Reducers/productReducers";
+
+import {
+  editNewsReducer,
+  newsDetailsReducer,
+  newsListReducer,
+} from "./Reducers/newsReducers";
 import {
   orderListReducer,
   orderDetailsReducer,
@@ -27,6 +33,9 @@ const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   editProduct: editProductReducer,
+  newsList: newsListReducer,
+  newsDetails: newsDetailsReducer,
+  editNews: editNewsReducer,
   createBranch: createBranchReducer,
   branchesList: branchesReducer,
   dashboard: dashboardReducer,

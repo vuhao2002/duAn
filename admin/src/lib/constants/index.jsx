@@ -48,6 +48,12 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     icon: <HiOutlineDocumentText />,
   },
   {
+    key: "news list",
+    label: "News List",
+    path: "/admin/news",
+    icon: <HiOutlineDocumentText />,
+  },
+  {
     key: "Add branch",
     label: "Add branch",
     path: "/admin/add-branch",

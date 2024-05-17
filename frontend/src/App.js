@@ -24,6 +24,7 @@ import {
   BadmintonAccessoriesPage,
   NewsPage,
   SearchResultPage,
+  NewsDetailPage,
 } from "./routes/Routes.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserInbox from "./pages/UserInbox.jsx";
@@ -64,6 +65,7 @@ const App = () => {
         <Route path="/san-pham-yeu-thich" element={<FavoriteProductsPage />} />
         <Route path="/tra-don-hang" element={<SearchOrderPage />} />
         <Route path="/tin-tuc" element={<NewsPage />} />
+        <Route path="/tin-tuc/:id" element={<NewsDetailPage />} />
         <Route path="/ket-qua-tim-kiem" element={<SearchResultPage />} />
       </Routes>
     </BrowserRouter>

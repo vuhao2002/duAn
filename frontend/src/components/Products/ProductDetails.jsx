@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -37,6 +37,8 @@ const ProductDetails = () => {
 
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, product } = productDetails;
+  const productList = useSelector((state) => state.productList);
+  const { products } = productList;
 
   const productCheckUserBuy = useSelector((state) => state.productCheckUserBuy);
   const { success } = productCheckUserBuy;
@@ -55,7 +57,6 @@ const ProductDetails = () => {
     images = product?.images?.map((item) => {
       return item.url;
     });
-    dispatch(listProduct(product.category));
     percent = Math.round(
       ((product.discountPrice - product.originalPrice) /
         product.originalPrice) *
@@ -97,6 +98,10 @@ const ProductDetails = () => {
       dispatch(createProductReview(rating, comment, productId));
     }
   };
+
+  useEffect(() => {
+    dispatch(listProduct(product.category));
+  }, [product, dispatch]);
 
   return (
     <div className="my-[100px] ">
@@ -839,105 +844,102 @@ const ProductDetails = () => {
       ) : (
         <></>
       )}
-      <div className="mt-[100px] max-w-[1230px] mx-auto">
-        <div className="w-full h-full mx-auto px-[15px]">
-          <h2 className="text-[40px] font-[700] text-[#031230]">
-            Sản phẩm tương tự
-          </h2>
-          <div className="mt-[30px]">
-            <div className="after:block after:clear-both">
-              <div className="m-[-12px] opacity-100 visible h-auto">
-                <div className="mx-auto overflow-hidden list-none z-1 p-[12px]">
-                  <div className="relative w-full h-full z-1 flex box-content transition-transform">
-                    <Swiper
-                      breakpoints={{
-                        280: {
-                          slidesPerView: "auto",
-                          spaceBetween: 15,
-                        },
-                        640: {
-                          slidesPerView: 3,
-                          spaceBetween: 15,
-                        },
-                        768: {
-                          slidesPerView: 4,
-                          spaceBetween: 15,
-                        },
-                        992: {
-                          slidesPerView: 4,
-                          spaceBetween: 14,
-                        },
-                        1024: {
-                          slidesPerView: 4,
-                          spaceBetween: 14,
-                        },
-                      }}
-                      // centeredSlides={true}
-                      grabCursor={true}
-                      freeMode={true}
-                      pagination={{
-                        // clickable: true,
-                        enabled: false,
-                      }}
-                      modules={[FreeMode, Pagination]}
-                    >
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                      <SwiperSlide className="!w-[284px] h-auto">
-                        <SuggestProductCard />
-                      </SwiperSlide>
-                    </Swiper>
+      {products ? (
+        <div className="mt-[100px] max-w-[1230px] mx-auto">
+          <div className="w-full h-full mx-auto px-[15px]">
+            <h2 className="text-[40px] font-[700] text-[#031230]">
+              Sản phẩm tương tự
+            </h2>
+            <div className="mt-[30px]">
+              <div className="after:block after:clear-both">
+                <div className="m-[-12px] opacity-100 visible h-auto">
+                  <div className="mx-auto overflow-hidden list-none z-1 p-[12px]">
+                    <div className="relative w-full h-full z-1 flex box-content transition-transform">
+                      <Swiper
+                        breakpoints={{
+                          280: {
+                            slidesPerView: "auto",
+                            spaceBetween: 15,
+                          },
+                          640: {
+                            slidesPerView: 3,
+                            spaceBetween: 15,
+                          },
+                          768: {
+                            slidesPerView: 4,
+                            spaceBetween: 15,
+                          },
+                          992: {
+                            slidesPerView: 4,
+                            spaceBetween: 14,
+                          },
+                          1024: {
+                            slidesPerView: 4,
+                            spaceBetween: 14,
+                          },
+                        }}
+                        // centeredSlides={true}
+                        grabCursor={true}
+                        freeMode={true}
+                        pagination={{
+                          // clickable: true,
+                          enabled: false,
+                        }}
+                        modules={[FreeMode, Pagination]}
+                      >
+                        {products.map((item, i) => {
+                          return (
+                            <SwiperSlide className="!w-[284px] h-auto" key={i}>
+                              <SuggestProductCard product={item} />
+                            </SwiperSlide>
+                          );
+                        })}
+                      </Swiper>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
 
-const SuggestProductCard = () => {
-  const isStocking = true;
+const SuggestProductCard = ({ product }) => {
+  let isStocking = true;
+  const stars = [1, 2, 3, 4, 5];
+  let percent = 0;
+  if (product) {
+    isStocking = product.stock > 0;
+    percent = Math.round(
+      ((product.discountPrice - product.originalPrice) /
+        product.originalPrice) *
+        100
+    );
+  }
   return (
     <div className="px-[7px] w-full max-[800px]:w-[50%]">
       <div className="h-full">
         <div className="group flex flex-col h-full p-[10px] rounded-[12px] bg-[#fff] duration-300 ease-in-out hover:shadow-2">
           <div className="relative">
             <div className="relative pt-[100%] rounded-[12px] overflow-hidden">
-              <a href="/san-pham/id">
+              <a href={`/san-pham/${product._id}`}>
                 <img
                   className="group-hover:scale-105 absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-37%] object-cover duration-300 ease-in-out object-top w-full h-auto max-w-full"
                   width="300"
                   height="400"
-                  src="https://fbshop.vn/wp-content/uploads/2024/01/nanoflare_1000play-1-400x546.webp"
+                  src={product.images[0].url}
                   alt=""
                 />
               </a>
             </div>
             <div className="absolute min-w-12 top-5 left-[10px] z-1 flex items-center justify-center">
               <div className="absolute w-full min-h-[48px] top-[-10px] -z-1 left-[0px] bg-no-repeat bg-contain bg-sale"></div>
-              <div className="font-[700] text-[#fff] mt-[2px]">-12%</div>
+              <div className="font-[700] text-[#fff] mt-[2px]">{percent}%</div>
             </div>
             {isStocking ? (
               <div className="bg-[#dcf3d8] absolute py-1 px-4 min-w-[120px] flex items-center justify-center gap-[6px] rounded-[36px] bottom-[10px] left-[10px] text-[#1d9d06] text-[14px]">
@@ -965,48 +967,45 @@ const SuggestProductCard = () => {
               <div className="flex shrink-0">
                 <div className="relative h-3">
                   <div className="flex">
-                    <img
-                      src="https://fbshop.vn/template/assets/images/Star.svg"
-                      alt=""
-                      className="w-[14px] h-[14px] max-w-full"
-                    />
-                    <img
-                      src="https://fbshop.vn/template/assets/images/Star.svg"
-                      alt=""
-                      className="w-[14px] h-[14px] max-w-full ml-1"
-                    />
-                    <img
-                      src="https://fbshop.vn/template/assets/images/Star.svg"
-                      alt=""
-                      className="w-[14px] h-[14px] max-w-full ml-1"
-                    />
-                    <img
-                      src="https://fbshop.vn/template/assets/images/Star.svg"
-                      alt=""
-                      className="w-[14px] h-[14px] max-w-full ml-1"
-                    />
-                    <img
-                      src="https://fbshop.vn/template/assets/images/Star-fill.svg"
-                      alt=""
-                      className="w-[14px] h-[14px] max-w-full ml-1"
-                    />
+                    {stars.map((star) => {
+                      if (star <= product?.ratings) {
+                        return (
+                          <img
+                            src="https://fbshop.vn/template/assets/images/Star.svg"
+                            alt=""
+                            className="w-[14px] h-[14px] max-w-full"
+                          />
+                        );
+                      } else {
+                        return (
+                          <img
+                            src="https://fbshop.vn/template/assets/images/Star-fill.svg"
+                            alt=""
+                            className="w-[14px] h-[14px] max-w-full"
+                          />
+                        );
+                      }
+                    })}
                   </div>
                 </div>
               </div>
-              <span className="text-[14px] mt-[2px] pl-[2px]"> (3) </span>
+              <span className="text-[14px] mt-[2px] pl-[2px]">
+                {" "}
+                ({product.ratings})
+              </span>
             </div>
             <a
               href="/san-pham/id"
               className="text-[16px] font-[500] overflow-hidden line-clamp-2 text-ellipsis no-underline duration-300 hover:text-[#f66315] ease-in-out"
             >
-              Vợt Yonex Nanoflare 1000Z | Siêu phẩm mùa hè 2023{" "}
+              {product.name}{" "}
             </a>
             <div className="flex items-center gap-[10px] pt-[10px] mt-auto">
               <span className="text-[20px] md:text-[18px] text-[#f66315] font-[700]">
-                3.300.000đ
+                {product.discountPrice}đ
               </span>
               <span className="text-[16px] md:text-[14px] text-[#7f8080] line-through">
-                3.600.000đ
+                {product.originalPrice}đ
               </span>
             </div>
           </div>

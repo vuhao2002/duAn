@@ -3,30 +3,24 @@ import { Button, Table, Modal } from "antd";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, listProduct } from "../../Redux/Actions/productActions";
 
-const AllProducts = () => {
-  const productList = useSelector((state) => state.productList);
-  const { products } = productList;
+import { listNews, deleteNews } from "../../Redux/Actions/newsActions";
+
+const AllNews = () => {
+  const newsList = useSelector((state) => state.newsList);
+  const { news } = newsList;
   const dispatch = useDispatch();
   let data = [];
-  if (products) {
-    data = products.map((product) => {
-      let type;
-      if (product.category === "vot") {
-        type = "Vợt cầu lông";
-      } else if (product.category === "giay") {
-        type = "Giày cầu lông";
-      } else if (product.category === "balo") {
-        type = "Balo cầu lông";
-      }
+  if (news) {
+    data = news.map((item) => {
+      const date = new Date(item.createdAt);
+      const newDate = `${date.getDate()} tháng ${
+        date.getMonth() + 1
+      }, ${date.getFullYear()}`;
       return {
-        id: product._id,
-        name: product.name,
-        price: `${product.discountPrice}đ`,
-        type,
-        stock: product.stock,
-        sold_out: product.sold_out,
+        id: item._id,
+        title: item.title,
+        date: newDate,
       };
     });
   }
@@ -40,7 +34,7 @@ const AllProducts = () => {
 
   const handleOk = () => {
     console.log(id);
-    dispatch(deleteProduct(id));
+    dispatch(deleteNews(id));
     setIsModalOpen(false);
   };
 
@@ -49,34 +43,24 @@ const AllProducts = () => {
   };
 
   useEffect(() => {
-    dispatch(listProduct());
+    dispatch(listNews());
   }, [dispatch]);
 
   const columns = [
     {
-      title: "Tên sản phẩm",
-      dataIndex: "name",
-      key: "name",
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: "Giá",
-      dataIndex: "price",
-      key: "price",
+      title: "Tiêu đề",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: "Loại sản phẩm",
-      dataIndex: "type",
-      key: "type",
-    },
-    {
-      title: "Số lượng trong kho",
-      dataIndex: "stock",
-      key: "stock",
-    },
-    {
-      title: "Đã bán",
-      dataIndex: "sold_out",
-      key: "sold_out",
+      title: "Ngày đăng",
+      dataIndex: "date",
+      key: "date",
     },
     {
       title: "Xem chi tiết",
@@ -84,7 +68,7 @@ const AllProducts = () => {
       key: "preview",
       render: (_, record) => (
         <>
-          <Link to={`/admin/product/${record.id}`}>
+          <Link to={`/admin/news/${record.id}`}>
             <Button>
               <AiOutlineEye size={20} />
             </Button>
@@ -115,22 +99,22 @@ const AllProducts = () => {
     <div class="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
       <div class="text-center py-4">
         <h1 className="text-[40px] font-[700] text-[#f66315]">
-          Tất cả sản phẩm
+          Tất cả tin tức
         </h1>
       </div>
       <div>
         <Table columns={columns} dataSource={data} />
       </div>
       <Modal
-        title="Xóa sản phẩm"
+        title="Xóa tin tức"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Bạn chắc chắn muốn xóa sản phẩm này?</p>
+        <p>Bạn chắc chắn muốn xóa tin tức này?</p>
       </Modal>
     </div>
   );
 };
 
-export default AllProducts;
+export default AllNews;

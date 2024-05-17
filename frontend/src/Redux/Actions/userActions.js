@@ -169,6 +169,8 @@ export const updateUserProfile =
         { withCredentials: true }
       );
       dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
+
       toast.success("Thay đổi thông tin thành công!");
 
       localStorage.setItem("userInfo", JSON.stringify(data));
@@ -202,6 +204,7 @@ export const updateUserAddress = (dataAddress) => async (dispatch) => {
       }
     );
     dispatch({ type: USER_UPDATE_ADDRESS_SUCCESS, payload: data });
+    dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
     toast.success("Thay đổi địa chỉ thành công!");
 
     localStorage.setItem("userInfo", JSON.stringify(data));
@@ -238,6 +241,7 @@ export const updateUserPassword =
         { withCredentials: true }
       );
       dispatch({ type: USER_UPDATE_PASSWORD_SUCCESS, payload: data });
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
       toast.success("Thay đổi mật khẩu thành công!");
       localStorage.setItem("userInfo", JSON.stringify(data));
     } catch (error) {
