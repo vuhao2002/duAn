@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { FaRegUser } from "react-icons/fa";
@@ -18,9 +18,11 @@ const UserAccountPage = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const navigate = useNavigate();
-  if (userInfo === null) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (userInfo === null) {
+      navigate("/login");
+    }
+  }, [userInfo, navigate]);
   const [name, setName] = useState(userInfo?.user?.name || "");
   const [email, setEmail] = useState(userInfo?.user?.email || "");
   const [phoneNumber, setPhoneNumber] = useState(

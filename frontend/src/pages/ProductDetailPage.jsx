@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import ProductDetails from "../components/Products/ProductDetails.jsx";
@@ -15,6 +15,9 @@ const ProductDetailPage = () => {
   const dispatch = useDispatch();
   dispatch(listProductDetails(id));
   dispatch(productCheckUser(id));
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
   return (
     <div className="font-Roboto">
       <Header />

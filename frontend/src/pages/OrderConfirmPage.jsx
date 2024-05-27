@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { FaShoppingCart } from "react-icons/fa";
@@ -7,11 +7,17 @@ import { BiSolidPhoneCall } from "react-icons/bi";
 import { FaTruckFast } from "react-icons/fa6";
 import completeIcon from "../images/icon-complete.png";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const OrderConfirmPage = () => {
   const orderCreate = useSelector((state) => state.orderCreate);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (userInfo === null) {
+      navigate("/login");
+    }
+  }, [userInfo, navigate]);
   const { order } = orderCreate;
   let date;
   console.log(order);
@@ -127,7 +133,7 @@ const OrderConfirmPage = () => {
                 </div>
               </div>
               <div className="mt-[50px] flex items-center gap-[24px] justify-center">
-                <a href="/" className="w-fit min-w-[200px]">
+                <Link to="/" className="w-fit min-w-[200px]">
                   <div className="border border-solid border-[#f66315] w-full mx-auto min-w-[120px] rounded-[4rem] relative">
                     <div className="hover:text-[#fff] cursor-pointer relative hover:bg-[#f66315] bg-[#fff] text-[#031230] duration-300 mx-auto rounded-[4rem] items-center justify-center flex">
                       <div className="py-[10px] px-[10px] flex items-center justify-center gap-[6px]">
@@ -137,9 +143,9 @@ const OrderConfirmPage = () => {
                       </div>
                     </div>
                   </div>
-                </a>
-                <a
-                  href={`/tai-khoan/view-order/${order._id}`}
+                </Link>
+                <Link
+                  to={`/tai-khoan/view-order/${order._id}`}
                   className="w-fit min-w-[200px]"
                 >
                   <div className="border border-solid border-[#f66315] w-full mx-auto min-w-[120px] rounded-[4rem] relative">
@@ -151,7 +157,7 @@ const OrderConfirmPage = () => {
                       </div>
                     </div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,7 +1,10 @@
 const User = require("../models/userModel");
 
 const sendMail = require("../utils/sendEmail");
+
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 const ErrorHandler = require("../utils/ErrorHandler");
 const sendToken = require("../utils/jwtToken");
 const catchAsyncError = require("../middlewares/catchAsyncErrors");
@@ -287,6 +290,44 @@ const deleteUser = asyncHandler(async (req, res, next) => {
   }
 });
 
+const forgotPasswordToken = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) throw new Error("Không tìm thấy người dùng với email này!");
+
+  try {
+    const token = await user.createPasswordResetToken();
+    await user.save();
+    const resetURL = `
+    Mã xác thực của bạn là: ${token}. Mã này có hiệu lực trong vòng 10 phút.`;
+    const data = {
+      email: email,
+      subject: "Mã xác thực quên mật khẩu",
+      message: `Mã xác thực của bạn là: ${token}. Mã này có hiệu lực trong vòng 10 phút.`,
+    };
+    sendMail(data);
+    res.json(token);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { password, token } = req.body;
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+  if (!user) throw new Error("Token Expired, Please try again later");
+  user.password = password;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+  res.json(user);
+});
+
 module.exports = {
   registerUser,
   activateUser,
@@ -295,6 +336,8 @@ module.exports = {
   getUser,
   getInfoUser,
   getAllUsers,
+  forgotPasswordToken,
+  resetPassword,
   updateUser,
   updateUserPassword,
   updateUserAddress,

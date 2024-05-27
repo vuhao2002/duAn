@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import Consultation from "../components/Route/Consultation/Consultation";
@@ -19,9 +19,11 @@ const PaymentPage = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  if (userInfo === null) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (userInfo === null) {
+      navigate("/login");
+    }
+  }, [userInfo, navigate]);
   const [name, setName] = useState(userInfo?.user?.name || "");
   const [phoneNumber, setPhoneNumber] = useState(
     userInfo?.user?.phoneNumber || ""

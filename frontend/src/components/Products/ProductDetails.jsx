@@ -44,6 +44,8 @@ const ProductDetails = () => {
   const { success } = productCheckUserBuy;
   const wishlist = useSelector((state) => state.wishlist);
   const { wishlistItems } = wishlist;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   let isStocking = true;
   let images = [];
   const dispatch = useDispatch();
@@ -102,9 +104,6 @@ const ProductDetails = () => {
   useEffect(() => {
     dispatch(listProduct(product.category));
   }, [product, dispatch]);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <div className="my-[100px] ">
@@ -377,7 +376,11 @@ const ProductDetails = () => {
                         if (size === null && color === null) {
                           return;
                         }
-                        navigate("/thanh-toan");
+                        if (!userInfo) {
+                          navigate("/login");
+                        } else {
+                          navigate("/thanh-toan");
+                        }
                       }}
                       className="hover:bg-[#fff] bg-[#f66315] hover:text-[#031230] text-white border border-solid border-[#f66315] min-w-[180px] cursor-pointer relative overflow-hidden transition-all my-0 rounded-[40px] flex items-center justify-center"
                     >

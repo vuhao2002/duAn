@@ -12,6 +12,10 @@ const NewsPage = () => {
   useEffect(() => {
     dispatch(listNews());
   }, [dispatch]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Header />

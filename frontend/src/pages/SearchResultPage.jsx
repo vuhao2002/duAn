@@ -21,6 +21,9 @@ const SearchResultPage = () => {
     const keyword = search;
     dispatch(listProduct(keyword));
   }, [dispatch, search]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="font-Roboto">
       <Header />

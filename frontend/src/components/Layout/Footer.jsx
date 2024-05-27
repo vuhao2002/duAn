@@ -24,7 +24,7 @@ const Footer = () => {
   const { userInfo } = userLogin;
   const navigate = useNavigate();
   const handleMessageSubmit = async () => {
-    if (userInfo.success) {
+    if (userInfo) {
       const groupTitle = userInfo.user.name;
       const shopId = "65f87d3cd8879439907a05dd";
       const userId = userInfo.user._id;
@@ -45,7 +45,7 @@ const Footer = () => {
           toast.error(error.response.data.message);
         });
     } else {
-      toast.error("Please login to create a conversation");
+      toast.error("Vui lòng đăng nhập để tạo một cuộc trò chuyện!");
     }
   };
 
@@ -350,9 +350,9 @@ const Footer = () => {
       </div>
       <div
         onClick={handleMessageSubmit}
-        className="text-white cursor-pointer shadow-5px fixed bottom-[100px] right-[10px] z-99 top-auto w-[36px] h-[36px] rounded-[5px] bg-[#2167e9] no-underline"
+        className="text-white cursor-pointer shadow-5px fixed bottom-[100px] right-[10px] z-999 top-auto w-[36px] h-[36px] rounded-[5px] bg-[#2167e9] no-underline"
       >
-        <FaFacebookMessenger className="text-[24px] absolute block mt-[5px] ml-[6px]" />
+        <FaFacebookMessenger className="text-[24px] absolute block mt-[5px] ml-[6px] " />
       </div>
     </div>
   );

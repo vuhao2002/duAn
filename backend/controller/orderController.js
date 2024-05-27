@@ -1,4 +1,6 @@
 const Order = require("../models/orderModel");
+const sendMail = require("../utils/sendEmail");
+
 const Product = require("../models/productModel");
 const Shop = require("../models/shopModel");
 const asyncHandler = require("express-async-handler");
@@ -46,10 +48,16 @@ const createOrder = asyncHandler(async (req, res, next) => {
 
       await product.save({ validateBeforeSave: false });
     }
-
     res.status(201).json({
       success: true,
       orders,
+    });
+    const orderId = orders[0]._id;
+
+    await sendMail({
+      email: user.email,
+      subject: "Đặt đơn hàng thành công!",
+      message: `Đơn hàng của bạn có ID tra cứu là: "${orderId}" bạn có thể tra cứu nó trong trên trang web của chúng tôi! Cảm ơn!!`,
     });
   } catch (error) {
     return next(new ErrorHandler(error.message, 500));

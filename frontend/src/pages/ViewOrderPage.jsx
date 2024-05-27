@@ -17,6 +17,8 @@ const ViewOrderPage = () => {
   const navigate = useNavigate();
   let date;
   var dateDelivered = null;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -58,53 +60,61 @@ const ViewOrderPage = () => {
                         <p className="font-[700] text-[24px]">
                           {order.user.name}
                         </p>
-                        <div
-                          onClick={() => {
-                            dispatch(logout());
-                            navigate("/");
-                          }}
-                          className="text-[#7f8080] hover:text-[#f66315] duration-300 ease-in-out underline cursor-pointer"
-                        >
-                          Đăng xuất
-                        </div>
+                        {userInfo ? (
+                          <div
+                            onClick={() => {
+                              dispatch(logout());
+                              navigate("/");
+                            }}
+                            className="text-[#7f8080] hover:text-[#f66315] duration-300 ease-in-out underline cursor-pointer"
+                          >
+                            Đăng xuất
+                          </div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                     {/* list */}
-                    <div className="flex flex-col gap-[20px] mt-[50px]">
-                      <div>
-                        <Link
-                          to="/tai-khoan"
-                          className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
-                        >
-                          <FaRegUser className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
-                          <span className="group-hover:text-[#f66315]">
-                            Thông tin tài khoản
-                          </span>
-                        </Link>
+                    {userInfo ? (
+                      <div className="flex flex-col gap-[20px] mt-[50px]">
+                        <div>
+                          <Link
+                            to="/tai-khoan"
+                            className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
+                          >
+                            <FaRegUser className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
+                            <span className="group-hover:text-[#f66315]">
+                              Thông tin tài khoản
+                            </span>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link
+                            to="/tai-khoan/change-password"
+                            className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
+                          >
+                            <MdLockOutline className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
+                            <span className="group-hover:text-[#f66315]">
+                              Thay đổi mật khẩu
+                            </span>
+                          </Link>
+                        </div>
+                        <div>
+                          <Link
+                            to="/tai-khoan/orders"
+                            className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
+                          >
+                            <LuFileClock className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
+                            <span className="group-hover:text-[#f66315]">
+                              Lịch sử đơn hàng
+                            </span>
+                          </Link>
+                        </div>
                       </div>
-                      <div>
-                        <Link
-                          to="/tai-khoan/change-password"
-                          className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
-                        >
-                          <MdLockOutline className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
-                          <span className="group-hover:text-[#f66315]">
-                            Thay đổi mật khẩu
-                          </span>
-                        </Link>
-                      </div>
-                      <div>
-                        <Link
-                          to="/tai-khoan/orders"
-                          className="no-underline duration-300 ease-in-out flex gap-[10px] py-[10px] px-[34px] items-center rounded-[48px] group hover:bg-[#feefe8]"
-                        >
-                          <LuFileClock className="text-[18px] text-[#7f8080] group-hover:text-[#f66315]" />
-                          <span className="group-hover:text-[#f66315]">
-                            Lịch sử đơn hàng
-                          </span>
-                        </Link>
-                      </div>
-                    </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                   {/* right */}
                   <div className="w-[75%] px-[25px]">
@@ -298,7 +308,7 @@ const ViewOrderPage = () => {
                                 </p>
                               </div>
                             </div>
-                            {order.status === "Processing" && (
+                            {order.status === "Processing" && userInfo && (
                               <div
                                 onClick={handleRefundSuccess}
                                 className="border border-solid border-[#f66315] ml-auto w-fit rounded-[4rem] relative"

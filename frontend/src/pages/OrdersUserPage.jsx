@@ -212,15 +212,15 @@ const OrdersUserPage = () => {
                                             )}
                                           </td>
                                           <td className="py-[23px] text-center">
-                                            <a
-                                              href={`/tai-khoan/view-order/${order._id}`}
+                                            <Link
+                                              to={`/tai-khoan/view-order/${order._id}`}
                                               className="flex group items-center justify-center gap-[10px] text-[#444545]"
                                             >
                                               <span className="duration-300 ease-in-out text-[#031230] group-hover:text-[#f66315]">
                                                 Xem chi tiết
                                               </span>
                                               <FaArrowRight className="text-[#031230] group-hover:text-[#f66315]" />
-                                            </a>
+                                            </Link>
                                           </td>
                                         </tr>
                                       );

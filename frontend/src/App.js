@@ -25,6 +25,7 @@ import {
   NewsPage,
   SearchResultPage,
   NewsDetailPage,
+  ForgotPasswordPage,
 } from "./routes/Routes.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserInbox from "./pages/UserInbox.jsx";
@@ -35,6 +36,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route
           path="/activation/:activation_token"

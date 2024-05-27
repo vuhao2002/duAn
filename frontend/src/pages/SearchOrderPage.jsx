@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import traleft from "../images/tra-left.webp";
@@ -7,6 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 import { getOrderDetails } from "../Redux/Actions/orderActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const SearchOrderPage = () => {
   const [search, setSearch] = useState("");
@@ -21,6 +22,9 @@ const SearchOrderPage = () => {
     dispatch(getOrderDetails(search));
     setSearch("");
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="font-Roboto">
       <Header />
@@ -144,15 +148,15 @@ const SearchOrderPage = () => {
                           )}
                         </td>
                         <td className="py-[23px] text-center">
-                          <a
-                            href={`/tai-khoan/view-order/${order._id}`}
+                          <Link
+                            to={`/tai-khoan/view-order/${order._id}`}
                             className="flex group items-center justify-center gap-[10px] text-[#444545]"
                           >
                             <span className="duration-300 ease-in-out text-[#031230] group-hover:text-[#f66315]">
                               Xem chi tiết
                             </span>
                             <FaArrowRight className="text-[#031230] group-hover:text-[#f66315]" />
-                          </a>
+                          </Link>
                         </td>
                       </tr>
                     );

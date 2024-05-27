@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
 import { FaShoppingCart } from "react-icons/fa";
@@ -18,6 +18,9 @@ const FavoriteProductsPage = () => {
   const handleToDetailProduct = (id) => {
     navigate(`/san-pham/${id}`);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="font-Roboto">
       <Header />
