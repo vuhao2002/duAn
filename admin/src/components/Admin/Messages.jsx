@@ -22,6 +22,8 @@ const Messages = () => {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [activeStatus, setActiveStatus] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(null);
+
   const scrollRef = useRef(null);
   useEffect(() => {
     socketId.on("getMessage", (data) => {
@@ -225,6 +227,8 @@ const Messages = () => {
                     userData={userData}
                     online={onlineCheck(item)}
                     setActiveStatus={setActiveStatus}
+                    active={active}
+                    setActive={setActive}
                   />
                 ))}
             </section>
@@ -260,12 +264,13 @@ const MessageList = ({
   setUserData,
   online,
   setActiveStatus,
+  active,
+  setActive,
 }) => {
   const [user, setUser] = useState([]);
   const handleClick = (id) => {
     setOpen(true);
   };
-  const [active, setActive] = useState(0);
 
   useEffect(() => {
     const userId = data.members.find((user) => user !== me);
@@ -300,7 +305,7 @@ const MessageList = ({
         <img
           src="https://png.pngtree.com/png-clipart/20190904/original/pngtree-user-cartoon-avatar-pattern-flat-avatar-png-image_4492883.jpg"
           alt=""
-          className="w-[50px] h-[50px] rounded-full"
+          className="min-w-[50px] h-[50px] rounded-full"
         />
         {online ? (
           <div className="w-[12px] h-[12px] bg-green-400 rounded-full absolute top-[2px] right-[2px]" />
@@ -382,14 +387,20 @@ const ShopInbox = ({
                   <div>
                     <div
                       className={`w-max p-2 rounded-xl ${
-                        item.sender === shopId ? "bg-[#ff6017]" : "bg-[#38c776]"
+                        item.sender === shopId
+                          ? "bg-[#ff6017] ml-auto"
+                          : "bg-[#38c776]"
                       } text-[#fff] h-min`}
                     >
-                      <p>{item.text}</p>
+                      <div>{item.text}</div>
                     </div>
-                    <p className="text-[12px] text-[#000000d3] pt-1">
+                    <div
+                      className={`${
+                        item.sender === shopId && "text-right"
+                      } text-[12px] text-[#000000d3] pt-1`}
+                    >
                       {format(item.createdAt)}
-                    </p>
+                    </div>
                   </div>
                 )}
               </div>

@@ -7,6 +7,10 @@ const News = () => {
   const newsList = useSelector((state) => state.newsList);
   const { news } = newsList;
   const dispatch = useDispatch();
+  let firstFourItems;
+  if (news) {
+    firstFourItems = news.slice(0, 4);
+  }
 
   useEffect(() => {
     dispatch(listNews());
@@ -36,7 +40,7 @@ const News = () => {
               <div className="sm:mx-auto mx-[0px]">
                 <div className="relative cursor-grab mx-auto overflow-hidden list-none p-0 z-1 box-border mt-[30px]">
                   <div className="transition-transform relative w-full h-full z-1 flex flex-wrap box-content justify-between">
-                    {news.map((item, i) => {
+                    {firstFourItems.map((item, i) => {
                       const date = new Date(item.createdAt);
                       const newDate = `${date.getDate()} tháng ${
                         date.getMonth() + 1

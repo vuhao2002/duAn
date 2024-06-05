@@ -27,6 +27,9 @@ const BadmintonShoesPage = () => {
   const [activeSortDiscount, setActiveSortDiscount] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     const keyword = "giay";
     dispatch(listProduct(keyword));
   }, [dispatch]);

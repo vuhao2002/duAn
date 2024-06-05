@@ -447,7 +447,7 @@ const Header = () => {
                   </li>
                   <li>
                     <Link
-                      to="lien-he"
+                      to="/lien-he"
                       className="block uppercase py-2 pl-3 pr-4 text-gray-700  lg:hover:text-[#f66315] lg:p-0 "
                     >
                       Liên hệ

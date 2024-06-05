@@ -15,6 +15,9 @@ const ShopsPage = () => {
     };
     getApiProductCard();
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="font-Roboto">
       <Header />

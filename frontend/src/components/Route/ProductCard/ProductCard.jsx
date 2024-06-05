@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCheck, FaTimes, FaRegHeart } from "react-icons/fa";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FiEye } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -85,7 +85,7 @@ const ProductCart = ({ product }) => {
                     </div>
                   )}
                   <div className="relative w-10 h-10 flex items-center justify-center rounded-[50%] text-[#f66315] bg-[#feefe8] hover:bg-[#f66315] hover:text-[#fff] text-[20px] duration-300 ease-in-out cursor-pointer">
-                    <AiOutlineShoppingCart
+                    <FiEye
                       onClick={() => {
                         navigate(`/san-pham/${product._id}`);
                       }}

@@ -291,15 +291,19 @@ const ShopInbox = ({
                         <div
                           className={`w-max p-2 rounded-xl ${
                             item.sender === shopId
-                              ? "bg-[#ff6017]"
+                              ? "bg-[#ff6017] ml-auto"
                               : "bg-[#38c776]"
                           } text-[#fff] h-min`}
                         >
-                          <p>{item.text}</p>
+                          <div>{item.text}</div>
                         </div>
-                        <p className="text-[12px] text-[#000000d3] pt-1">
+                        <div
+                          className={`${
+                            item.sender === shopId && "text-right"
+                          } text-[12px] text-[#000000d3] pt-1`}
+                        >
                           {format(item.createdAt)}
-                        </p>
+                        </div>
                       </div>
                     )}
                   </div>

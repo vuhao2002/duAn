@@ -13,7 +13,6 @@ import icon_tag from "../../images/icon-cate-tag.webp";
 import ft_pay_icon from "../../images/ft-pay-icon.webp";
 import step_icon from "../../images/step-icon.webp";
 import cart_icon from "../../images/cart-icon.webp";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Redux/Actions/cartActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,6 +24,7 @@ import {
   createProductReview,
   listProduct,
 } from "../../Redux/Actions/productActions";
+import { FiEye } from "react-icons/fi";
 
 const ProductDetails = () => {
   const [select, setSelect] = useState(0);
@@ -964,7 +964,7 @@ const SuggestProductCard = ({ product }) => {
                 <FaRegHeart />
               </div>
               <div className="relative w-10 h-10 flex items-center justify-center rounded-[50%] text-[#f66315] bg-[#feefe8] hover:bg-[#f66315] hover:text-[#fff] text-[20px] duration-300 ease-in-out cursor-pointer">
-                <AiOutlineShoppingCart />
+                <FiEye />
               </div>
             </div>
           </div>

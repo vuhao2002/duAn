@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import Header from "../components/Layout/Header";
 import Footer from "../components/Layout/Footer";
-import { FaShoppingCart } from "react-icons/fa";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../Redux/Actions/wishlistActions";
 import { useNavigate } from "react-router-dom";
+import { FiEye } from "react-icons/fi";
 
 const FavoriteProductsPage = () => {
   const wishlist = useSelector((state) => state.wishlist);
@@ -98,7 +98,7 @@ const FavoriteProductsPage = () => {
                                   <div className="border border-solid border-[#f66315] w-full mx-auto min-w-[120px] rounded-[4rem] relative">
                                     <div className="text-[#fff] cursor-pointer relative bg-[#f66315] hover:bg-[#fff] hover:text-[#031230] duration-300 mx-auto rounded-[4rem] items-center justify-center flex">
                                       <div className="py-[12px] px-[16px] flex items-center justify-center gap-[6px]">
-                                        <FaShoppingCart className="text-[16px]" />
+                                        <FiEye className="text-[16px]" />
                                         <span className="text-[16px] font-[500] leading-[1.2]">
                                           Chi tiết sản phẩm
                                         </span>

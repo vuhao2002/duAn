@@ -27,6 +27,10 @@ const BadmintonBalosPage = () => {
   const [activeSortDiscount, setActiveSortDiscount] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const keyword = "balo";
     dispatch(listProduct(keyword));
   }, [dispatch]);

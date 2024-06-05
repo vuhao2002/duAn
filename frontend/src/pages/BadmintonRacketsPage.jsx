@@ -26,6 +26,9 @@ const BadmintonRacketsPage = () => {
   const [activeSortCreated, setActiveSortCreated] = useState(false);
   const [activeSortDiscount, setActiveSortDiscount] = useState(false);
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     const keyword = "vot";
     dispatch(listProduct(keyword));
   }, [dispatch]);

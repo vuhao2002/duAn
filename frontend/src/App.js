@@ -35,6 +35,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/lien-he" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/sign-up" element={<SignupPage />} />
@@ -44,7 +45,6 @@ const App = () => {
         />
         <Route path="/cua-hang" element={<ShopsPage />} />
         <Route path="/inbox/:conversationId" element={<UserInbox />} />
-        <Route path="/lien-he" element={<ContactPage />} />
         <Route path="/san-pham/:id" element={<ProductDetailPage />} />
         <Route path="/vot-cau-long" element={<BadmintonRacketsPage />} />
         <Route path="/giay-cau-long" element={<BadmintonShoesPage />} />
